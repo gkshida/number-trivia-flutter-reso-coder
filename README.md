@@ -9,7 +9,7 @@ The objective of this tutorial is to learn about Clean Architecture for Flutter.
 - [x] Explanation & Project Structure.
 - [x] Entities & Use Cases.
 - [x] Domain Layer Refactoring.
-- [ ] Data Layer Overview & Models.
+- [x] Data Layer Overview & Models.
 - [ ] Contract of Data Sources.
 - [ ] Repository Implementation.
 - [ ] Network Info.
