@@ -1,13 +1,15 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
-import 'package:number_trivia_flutter/core/errors/exception.dart';
 
+import '../../../../core/errors/exception.dart';
 import '../../../../core/errors/failure.dart';
 import '../../../../core/platform/network_info.dart';
 import '../../domain/entities/number_trivia.dart';
 import '../../domain/repositories/number_trivia_repository.dart';
 import '../datasources/number_trivia_local_data_source.dart';
 import '../datasources/number_trivia_remote_data_source.dart';
+
+typedef Future<NumberTrivia> _ConcreteOrRandomChooser();
 
 class NumberTriviaRepositoryImpl implements NumberTriviaRepository {
   final NumberTriviaRemoteDataSource remoteDataSource;
@@ -20,13 +22,11 @@ class NumberTriviaRepositoryImpl implements NumberTriviaRepository {
     @required this.networkInfo,
   });
 
-  @override
-  Future<Either<Failure, NumberTrivia>> getConcreteNumberTrivia(
-      int number) async {
+  Future<Either<Failure, NumberTrivia>> _getTrivia(
+      _ConcreteOrRandomChooser getConcreteOrRandom) async {
     if (await networkInfo.isConnected) {
       try {
-        final remoteTrivia =
-            await remoteDataSource.getConcreteNumberTrivia(number);
+        final remoteTrivia = await getConcreteOrRandom();
 
         localDataSource.cacheNumberTrivia(remoteTrivia);
 
@@ -46,26 +46,17 @@ class NumberTriviaRepositoryImpl implements NumberTriviaRepository {
   }
 
   @override
+  Future<Either<Failure, NumberTrivia>> getConcreteNumberTrivia(
+      int number) async {
+    return await _getTrivia(() {
+      return remoteDataSource.getConcreteNumberTrivia(number);
+    });
+  }
+
+  @override
   Future<Either<Failure, NumberTrivia>> getRandomNumberTrivia() async {
-    if (await networkInfo.isConnected) {
-      try {
-        final remoteTrivia =
-            await remoteDataSource.getRandomNumberTrivia();
-
-        localDataSource.cacheNumberTrivia(remoteTrivia);
-
-        return Right(remoteTrivia);
-      } on ServerException {
-        return Left(ServerFailure());
-      }
-    } else {
-      try {
-        final localTrivia = await localDataSource.getLastNumberTrivia();
-
-        return Right(localTrivia);
-      } on CacheException {
-        return Left(CacheFailure());
-      }
-    }
+    return await _getTrivia(() {
+      return remoteDataSource.getRandomNumberTrivia();
+    });
   }
 }
