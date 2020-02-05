@@ -26,5 +26,5 @@ The objective of this tutorial is to learn about Clean Architecture for Flutter.
 
 ## Reso Coder's Flutter Clean Architecture Proposal
 
-![Reso Coder's Flutter Clean Architecture Proposal] (https://i0.wp.com/resocoder.com/wp-content/uploads/2019/08/Clean-Architecture-Flutter-Diagram.png?w=556&ssl=1)
+![Reso Coder's Flutter Clean Architecture Proposal](https://i0.wp.com/resocoder.com/wp-content/uploads/2019/08/Clean-Architecture-Flutter-Diagram.png?w=556&ssl=1)
 
