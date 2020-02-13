@@ -13,7 +13,7 @@ The objective of this tutorial is to learn about Clean Architecture for Flutter.
 - [x] Contract of Data Sources.
 - [x] Repository Implementation.
 - [x] Network Info.
-- [ ] Local Data Source.
+- [x] Local Data Source.
 - [ ] Remote Data Source.
 - [ ] Provider & Input Conversion.
 - [ ] Provider Implementation.
