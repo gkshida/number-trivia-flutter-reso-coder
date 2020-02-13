@@ -53,4 +53,22 @@ void main() {
       },
     );
   });
+
+  group('cachedNumberTrivia', () {
+    final tNumberTrivialModel = NumberTriviaModel(
+      number: 1,
+      text: 'test trivia',
+    );
+    test(
+      'should call SharedPreferences to cache the data',
+      () async {
+        // act
+        dataSource.cacheNumberTrivia(tNumberTrivialModel);
+        // assert
+        final expectedJsonString = json.encode(tNumberTrivialModel.toJson());
+        verify(mockSharedPreferences.setString(
+            CACHED_NUMBER_TRIVIA, expectedJsonString));
+      },
+    );
+  });
 }
