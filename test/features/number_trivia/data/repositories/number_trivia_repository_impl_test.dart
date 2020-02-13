@@ -3,7 +3,7 @@ import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:number_trivia_flutter/core/errors/exception.dart';
 import 'package:number_trivia_flutter/core/errors/failure.dart';
-import 'package:number_trivia_flutter/core/platform/network_info.dart';
+import 'package:number_trivia_flutter/core/network/network_info.dart';
 import 'package:number_trivia_flutter/features/number_trivia/data/datasources/number_trivia_local_data_source.dart';
 import 'package:number_trivia_flutter/features/number_trivia/data/datasources/number_trivia_remote_data_source.dart';
 import 'package:number_trivia_flutter/features/number_trivia/data/models/number_trivia_model.dart';
